@@ -14,7 +14,7 @@ def index():
 
     if request.method == 'POST':
         song = request.form['song_name']
-        song_id = int(song_meta_df[song_meta_df['song_name'] == song]["id"])
+        song_id = int(song_meta_df[song_meta_df['song_name'] == song]["id"].iloc[0]) # 일단 중복 제목 노래는 첫번째 노래만 가져오도록 함 (자동완성 적용 후 수정 필요)
         song_list = list(recommendation_df[song_id])
         result = []
         for i in range(len(song_list)):
