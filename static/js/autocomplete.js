@@ -1,7 +1,7 @@
 $(function () {	//화면 로딩후 시작
     $("#searchInput").autocomplete({  //오토 컴플릿트 시작
          source: function(request, response) {
-var results = $.ui.autocomplete.filter(List, request.term);
+var results = $.ui.autocomplete.filter(Data, request.term);
 
 response(results.slice(0, 10));
 },
