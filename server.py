@@ -1,26 +1,52 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
-import pandas as pd
+from flask import Flask, render_template, request, url_for, redirect
+from crawring.melon_cawring import get_melon_url
+import json
 
-recommendation_df = pd.read_json('./data/song_id2playlist_word2vec.json', typ = 'frame')
-song_meta_df = pd.read_json('./data/song_meta_data_v3.json', typ = 'frame')
+with open('./data/song_id2artist_name_basket.json', 'r', encoding = 'utf-8') as f:
+    song_id2artist_name_basket = json.load(f)
+
+with open('./data/song_id2song_name.json', 'r', encoding = 'utf-8') as f:
+    song_id2song_name = json.load(f)
+
+with open('./data/ranking_song_id2playlist.json', 'r', encoding = 'utf-8') as f:
+    song_id2playlist = json.load(f)
+
+with open('./data/song_name_artist_name2song_id.json', 'r', encoding = 'utf-8') as f:
+    song_name_artist_name2song_id = json.load(f)
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def index():
     if request.method == 'GET':
         return render_template('index.html')
 
-    if request.method == 'POST':
-        song = request.form['song_name']
-        song_id = int(song_meta_df[song_meta_df['song_name'] == song]["id"].iloc[0]) # 일단 중복 제목 노래는 첫번째 노래만 가져오도록 함 (자동완성 적용 후 수정 필요)
-        song_list = list(recommendation_df[song_id])
-        result = []
-        for i in range(len(song_list)):
-            result.append(song_meta_df[song_meta_df['id']==song_list[i]]["song_name"].values[0])
+@app.route("/people", methods=['GET'])
+def people():
+    if request.method == 'GET':
+        return render_template('people.html')
 
-        return render_template('index.html', output_song_list=result)
+@app.route("/about", methods=['GET'])
+def about():
+    if request.method == 'GET':
+        return render_template('about.html')
+
+@app.route("/result", methods=['GET', 'POST'])
+def result():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        song_name_artist_name = request.form['song_name_artist_name']
+        now_song_id = song_name_artist_name2song_id[song_name_artist_name]
+        playlist = song_id2playlist[str(now_song_id)]
+
+        result = [[song_id2song_name[str(song_id)], song_id2artist_name_basket[str(song_id)]] for song_id in playlist]
+        result = [[song_name, artist_name] + get_melon_url(song_name, artist_name) for song_name, artist_name in result]
+
+        return render_template('result.html', output_song_list = result)
+
 
 if __name__ == '__main__':
    app.run(debug = True)
