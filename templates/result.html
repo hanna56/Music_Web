@@ -59,22 +59,26 @@
      <!-- Music Recommendation -->
      <section id="music_recommendation" data-stellar-background-ratio="0.5">
          <div class="overlay"></div>
+         <div class="container">
          <ul class="section">
          {%for song_name, artist_name, melon_song_url, melon_song_img_url in output_song_list%}
-               <li class="playlist">
-                   <img src={{melon_song_img_url}} alt={{song_name}} class="album-cover" data-key="title" data-value="BLOOM*IZ">
+             <div class="col-md-12 col-sm-12">
+             <li class="playlist">
                    <div class="music-info">
-                       <h1 href={{melon_song_url}} class="title">{{ song_name }}</h1>
-                       <span class="artist">{{ artist_name }}</span>
+                       <h1 class="title"><a href={{melon_song_url}}>{{ song_name }}</a></h1>
+                       <img src={{melon_song_img_url}} alt={{song_name}} class="album-cover" data-key="title" data-value="BLOOM*IZ">
+                       <h3 class="artist">{{ artist_name }}</h3>
                    </div>
 
-                   <button type="button" class="like-button">
-                       <i class="far fa-heart"></i>
-                       <i class="fas fa-heart" sr-only="add or remove this music to Like list"></i>
-                   </button>
+<!--                   <button type="button" class="like-button">-->
+<!--                       <i class="far fa-heart"></i>-->
+<!--                       <i class="fas fa-heart" sr-only="add or remove this music to Like list"></i>-->
+<!--                   </button>-->
                </li>
+             </div>
          {% endfor %}
          </ul>
+         </div>
      </section>
 
 </body>
