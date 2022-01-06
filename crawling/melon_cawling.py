@@ -56,7 +56,7 @@ def get_melon_url(song_name, artist_name):
         melon_song_img_url = melon_song_img_url[0]['src']
 
     else:
-        melon_song_id_url = 'https://www.melon.com/song/detail.htm?songId=30314784'
-        melon_song_img_url = 'https://cdnimg.melon.co.kr/cm/album/images/100/47/890/10047890_500.jpg?fe3170fcb1ac397fc072be5877d5f1b9/melon/resize/282/quality/80/optimize'
+        melon_song_id_url = f'https://www.melon.com/search/total/index.htm?q={song_name}&section=&mwkLogType=T'
+        melon_song_img_url = 'static/images/wait_img.jpg'
 
     return [melon_song_id_url, melon_song_img_url]

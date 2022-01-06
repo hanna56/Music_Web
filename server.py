@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, url_for, redirect
-from crawring.melon_cawring import get_melon_url
+from crawling.melon_cawling import get_melon_url
 import json
 
 with open('data/song_id2artist_name_basket.json', 'r', encoding = 'utf-8') as f:
