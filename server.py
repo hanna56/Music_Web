@@ -23,8 +23,9 @@ def index():
         return render_template('index.html')
 
     if request.method == 'POST':
-        fail_msg = '존재하지 않는 노래 입니다.'
-        return render_template('index.html', fail_msg = fail_msg)
+        fail_msg1 = '❗ 존재하지 않는 노래 입니다 ❗' 
+        fail_msg2 = '다시 검색해주세요'
+        return render_template('index.html', fail_msg1 = fail_msg1, fail_msg2 = fail_msg2)
 
 @app.route("/people", methods=['GET'])
 def people():
