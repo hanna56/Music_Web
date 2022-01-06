@@ -8,11 +8,13 @@ http://www.tooplate.com/view/2106-soft-landing
  
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400');
 
+
   body {
     font-family: 'Open Sans', sans-serif;
     overflow-x: hidden;
     background: #f9f9f9;
   }
+
 
 
 
@@ -496,12 +498,6 @@ http://www.tooplate.com/view/2106-soft-landing
     color: #ffffff;
   }
 
-  .testimonial-image {
-    background: url('../images/testimonial-image.jpg') no-repeat center center;
-    background-size: cover;
-    width: 100%;
-    height: 65vh;
-  }
 
   .testimonial-info {
     background: #202020;
